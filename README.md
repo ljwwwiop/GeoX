@@ -1,6 +1,6 @@
 <div align="center">
 
-# LiAuto-GeoX LiAuto-GeoX: Efficient Grounded Driving Transformer
+# LiAuto-GeoX: Efficient Grounded Driving Transformer
 
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://ljwwwiop.github.io/GeoX/)
 [![arXiv](https://img.shields.io/badge/arXiv-2605.xxxxx-b31b1b.svg)](https://arxiv.org/abs/2605.xxxxx)
