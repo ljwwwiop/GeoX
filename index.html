@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LiAuto-GeoX: Efficient Grounded Driving Transformer for autonomous driving.">
+  <meta name="keywords" content="LiAuto-GeoX, Autonomous Driving, Transformer, Grounding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LiAuto-GeoX: Efficient Grounded Driving Transformer</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="white-space: nowrap;">LiAuto-GeoX: Efficient Grounded Driving Transformer</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Jiawei Lian<sup>1,2,*</sup>,</span>
+            <span class="author-block">
+              Haoyi Sun<sup>2,*</sup>,</span>
+            <span class="author-block">
+              Yang Wu<sup>1,*</sup>,</span>
+            <span class="author-block">
+              Lifu Mu<sup>2,*</sup>,</span>
+            <span class="author-block">
+              Siyuan Wang<sup>1,2</sup>,</span>
+            <span class="author-block">
+              Tao Wei<sup>2</sup>,</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Le Hui<sup>3,4,†</sup>,</span>
+            <span class="author-block">
+              Ning Mao<sup>2,†,‡</sup>,</span>
+            <span class="author-block">
+              Pan Zhou<sup>2</sup>,</span>
+            <span class="author-block">
+              Kun Zhan<sup>2</sup>,</span>
+            <span class="author-block">
+              Jian Yang<sup>1,†</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Nanjing University of Science and Technology</span>
+            <span class="author-block"><sup>2</sup>Li Auto Inc.</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>3</sup>Northwestern Polytechnical University</span>
+            <span class="author-block"><sup>4</sup>Department of Computing, The Hong Kong Polytechnic University</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>†</sup>Corresponding Author</span>
+            <span class="author-block"><sup>‡</sup>Project Leader</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser_figure.png" alt="Overview of LiAuto-GeoX" style="width: 100%; height: auto;">
+      <h2 class="subtitle has-text-centered">
+        <strong>Overview of LiAuto-GeoX.</strong>
+        LiAuto-GeoX provides an efficient driving geometry model for surround-view 3D reconstruction and downstream autonomy tasks.
+        It strikes a compact yet effective accuracy–efficiency balance, accommodates diverse camera configurations, and transfers the learned dense geometry to tasks such as pose estimation, depth estimation, 3D reconstruction, trajectory prediction, occupancy prediction, and future occupancy forecasting, achieving excellent performance across all of them.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"><strong>Abstract</strong></h2>
+        <div class="content has-text-justified">
+          <p>
+            Dense 3D reconstruction has demonstrated immense potential for spatial understanding, yet its viability as a real-time, onboard representation for autonomous driving remains an open challenge. Existing large-scale visual geometry models typically require substantial computational resources and lack the long-range geometric fidelity, surround-view consistency, and real-time efficiency demanded by dynamic driving environments. To bridge this gap, we present <strong>LiAuto-GeoX</strong>, an efficient grounded driving transformer designed for deployable, ego-centric 3D scene understanding. Our approach begins by learning a high-capacity driving geometry model from large-scale surround-view data, utilizing sparse LiDAR priors to provide robust geometric grounding in distant, ambiguous, or structure-sparse regions. We then instantiate this capability into a highly compact 155M-parameter onboard model through a novel geometry-preserving distillation framework. This framework employs mask-guided depth-aware distillation to retain fine-grained metric structures by emphasizing geometrically informative regions, and relative-pose relational distillation to enforce cross-view spatial consistency through pose-induced geometric relations. Extensive evaluations reveal that <strong>LiAuto-GeoX</strong> runs at 220 FPS on KITTI while maintaining high-fidelity dense reconstruction, enabling real-time deployment. The learned geometry transfers seamlessly to downstream autonomy tasks, achieving 90.6 PDMS in trajectory prediction, 24.63 mIoU in occupancy prediction, and 47.67 IoU in future-frame prediction. These all demonstrate that efficient dense 3D reconstruction can transcend its traditional role as a perception target to serve as a scalable, foundational geometric representation for next-generation autonomous driving.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"><strong>Method</strong></h2>
+      </div>
+    </div>
+
+    <!-- Method carousel -->
+    <div class="hero-body">
+      <div id="method-carousel" class="carousel results-carousel">
+        <div class="item item-pipeline">
+          <img src="./static/images/pipeline.png" alt="LiAuto-GeoX Pipeline" style="width: 100%; height: auto;">
+        </div>
+        <div class="item item-mask">
+          <img src="./static/images/method_mask.png" alt="Mask-guided Depth-aware Distillation" style="width: 100%; height: auto;">
+        </div>
+        <div class="item item-rpd">
+          <img src="./static/images/method_rpd.png" alt="Relative-pose Relational Distillation" style="width: 100%; height: auto;">
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered">
+        <strong>Overall pipeline of LiAuto-GeoX.</strong>
+        LiAuto-GeoX first trains a high-capacity teacher model to learn dense driving geometry from calibrated multi-view RGB inputs, then distills its geometric capability into a compact student model with task supervision, token-mask condition, and relational constraints. During inference, only the student is deployed to produce dense 3D reconstructions under flexible surround-view camera configurations.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"><strong>3D Reconstruction Visualization</strong></h2>
+      </div>
+    </div>
+
+    <!-- nuScenes 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">nuScenes Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-nuscenes-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/seq_0002_visualization.gif" alt="nuScenes Scene 0002" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0003_visualization.gif" alt="nuScenes Scene 0003" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0005_visualization.gif" alt="nuScenes Scene 0005" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0016_visualization.gif" alt="nuScenes Scene 0016" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0019_visualization.gif" alt="nuScenes Scene 0019" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- DDAD 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">DDAD Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-ddad-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/seq_0001_visualization.gif" alt="DDAD Scene 0001" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0004_visualization.gif" alt="DDAD Scene 0004" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0024_visualization.gif" alt="DDAD Scene 0024" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0032_visualization.gif" alt="DDAD Scene 0032" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0039_visualization.gif" alt="DDAD Scene 0039" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Waymo 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Waymo Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-waymo-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/seq_0011_visualization.gif" alt="Waymo Scene 0011" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0022_visualization.gif" alt="Waymo Scene 0022" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0026_visualization.gif" alt="Waymo Scene 0026" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0030_visualization.gif" alt="Waymo Scene 0030" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- OpenScene 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">OpenScene Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-openscene-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/seq_0015_visualization.gif" alt="OpenScene Scene 0015" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0041_visualization.gif" alt="OpenScene Scene 0041" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0048_visualization.gif" alt="OpenScene Scene 0048" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0097_visualization.gif" alt="OpenScene Scene 0097" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0099_visualization.gif" alt="OpenScene Scene 0099" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- PandaSet 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">PandaSet Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-pandaset-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/seq_0000_visualization.gif" alt="PandaSet Scene 0000" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0007_visualization.gif" alt="PandaSet Scene 0007" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0014_visualization.gif" alt="PandaSet Scene 0014" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0016_visualization.gif" alt="PandaSet Scene 0016" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0019_visualization.gif" alt="PandaSet Scene 0019" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/seq_0027_visualization.gif" alt="PandaSet Scene 0027" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Lyft 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Lyft Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-lyft-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/lyft_seq_0002_visualization.gif" alt="Lyft Scene 0002" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/lyft_seq_0011_visualization.gif" alt="Lyft Scene 0011" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/lyft_seq_0015_visualization.gif" alt="Lyft Scene 0015" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/lyft_seq_0045_visualization.gif" alt="Lyft Scene 0045" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/lyft_seq_0047_visualization.gif" alt="Lyft Scene 0047" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- AV2 3D Reconstruction Carousel -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Argoverse 2 Scenes</h3>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div id="reconstruction-av2-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0002_visualization.gif" alt="AV2 Scene 0002" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0007_visualization.gif" alt="AV2 Scene 0007" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0018_visualization.gif" alt="AV2 Scene 0018" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0022_visualization.gif" alt="AV2 Scene 0022" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0035_visualization.gif" alt="AV2 Scene 0035" style="width: 100%; height: auto;">
+        </div>
+        <div class="item">
+          <img src="./static/gifs/av2_seq_0039_visualization.gif" alt="AV2 Scene 0039" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"><strong>Qualitative camera trajectory predictions</strong></h2>
+      </div>
+    </div>
+
+    <!-- Column headers -->
+    <div class="columns is-centered has-text-centered" style="margin-bottom: 0;">
+      <div class="column is-half">
+        <h3 class="title is-4">GeoX Traj</h3>
+      </div>
+      <div class="column is-half">
+        <h3 class="title is-4">VGGT Traj</h3>
+      </div>
+    </div>
+
+    <!-- Trajectory comparison videos -->
+    <div class="columns is-multiline is-centered">
+      <!-- Scene 0009 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_ours_scene0009.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_vggt_scene0009.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Scene 0109 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_ours_scene0109.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_vggt_scene0109.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Scene 0139 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_ours_scene0139.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_vggt_scene0139.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Scene 0151 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_ours_scene0151.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_vggt_scene0151.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- Night Scene Trajectories -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4"><strong>Night Scene Trajectories</strong></h3>
+      </div>
+    </div>
+
+    <div class="columns is-multiline is-centered">
+      <!-- Night Scene 1057 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_night_scene1057.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered" style="margin-top: 0.5rem;">Scene 1057</p>
+      </div>
+      <!-- Night Scene 1091 -->
+      <div class="column is-half">
+        <video controls muted loop playsinline style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_night_scene1091.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered" style="margin-top: 0.5rem;">Scene 1091</p>
+      </div>
+    </div>
+
+    <!-- More Trajectory Predictions -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4"><strong>More Trajectory Predictions</strong></h3>
+      </div>
+    </div>
+
+    <div class="columns is-multiline is-centered">
+      <!-- AV2 videos -->
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_av2_4487b659-692e-3b35-9d1e-a230279ed646.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_av2_79f3de22-c643-3e97-96d5-f77274a458c0.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_av2_7ad46cf0-aa12-4050-ac2d-cf34b5f64d41.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_av2_8223c3d0-3b08-3889-9cdc-a88592c4bd4a.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_av2_ab8c747b-b9cb-3835-a275-54c56cb9a469.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- DDAD videos -->
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_train_26.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_train_78.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_train_82.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_train_85.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_train_116.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_ddad_val_28.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- nuScenes videos -->
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_nuscenes_scene-0109.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_nuscenes_scene-0151.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_nuscenes_scene-0283.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-one-third">
+        <video controls muted loop playsinline preload="metadata" style="width: 100%; height: auto;">
+          <source src="./static/videos/traj_more_nuscenes_scene-0348.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-av2">
+          <video poster="" id="av2" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/av-2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-lyft">
+          <video poster="" id="lyft" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/lyft.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-openscenes">
+          <video poster="" id="openscenes" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/openscenes.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-waymo">
+          <video poster="" id="waymo" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/waymo.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+
+
+    <!-- Concurrent Work.
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            There's a lot of excellent work that was introduced around the same time as ours.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
+          </p>
+          <p>
+            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+            both use deformation fields to model non-rigid scenes.
+          </p>
+          <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p>
+          <p>
+            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+    / Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website template is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> under the <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
