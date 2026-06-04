@@ -1,31 +1,33 @@
 <div align="center">
 
+<img src="./assert/logo.png" alt="LiAuto-GeoX Logo" width="320">
+
 # LiAuto-GeoX: Efficient Grounded Driving Transformer
 
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://ljwwwiop.github.io/GeoX/)
 [![arXiv](https://img.shields.io/badge/arXiv-2605.xxxxx-b31b1b.svg)](https://arxiv.org/abs/2605.xxxxx)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Demo-yellow)](https://huggingface.co)
-[![Code](https://img.shields.io/badge/Code-Coming%20Soon-blue)](#)
 
 Jiawei Lian<sup>1,2,\*</sup>,
 Haoyi Sun<sup>2,\*</sup>,
 Yang Wu<sup>1,\*</sup>,
 Lifu Mu<sup>2,\*</sup>,
 Siyuan Wang<sup>1,2</sup>,
-Tao Wei<sup>2</sup>,
 Le Hui<sup>3,4,†</sup>,
 Ning Mao<sup>2,†,‡</sup>,
+Tao Wei<sup>2</sup>,
 Pan Zhou<sup>2</sup>,
 Kun Zhan<sup>2</sup>,
 Jian Yang<sup>1,†</sup>
 
-<sup>1</sup>Nanjing University of Science and Technology &nbsp;&nbsp;
-<sup>2</sup>Li Auto Inc. &nbsp;&nbsp;
-<sup>3</sup>Northwestern Polytechnical University &nbsp;&nbsp;
-<sup>4</sup>Department of Computing, The Hong Kong Polytechnic University
+<sup>1</sup>🎓 Nanjing University of Science and Technology &nbsp;&nbsp;
+<sup>2</sup>🏢 Li Auto Inc. &nbsp;&nbsp;
+<sup>3</sup>🎓 Northwestern Polytechnical University &nbsp;&nbsp;
+<br>
+<sup>4</sup>🎓 Department of Computing, The Hong Kong Polytechnic University
 
-<sup>*</sup>Equal Contribution &nbsp;&nbsp;
-<sup>†</sup>Corresponding Author &nbsp;&nbsp;
+<sup>\*</sup>Equal Contribution &nbsp;&nbsp;
+<sup>†</sup>✉️ Corresponding Author &nbsp;&nbsp;
 <sup>‡</sup>Project Leader
 
 </div>
@@ -34,10 +36,10 @@ Jian Yang<sup>1,†</sup>
 
 ## Release Plan
 
-- [ ] Pretrained Models
-  - [ ] LiAuto-GeoX-155M (Compact Student Model)
-  - [x] ~~LiAuto-GeoX-Teacher (Large-scale Teacher Model)~~ - Not for release
-- [x] ~~Training Pipeline (Complete)~~ - Not for release
+- [ ] LiAuto-GeoX Weight
+- [ ] LiAuto-GeoX-Teacher (Large-scale Teacher Model)
+- [ ] Data Processing
+- [ ] Training Pipeline
 - [ ] Inference Instructions
 
 ---
@@ -49,7 +51,7 @@ All released models will be evaluated under the same protocol as reported in the
 
 | Model | Parameters | Input Setting | Download |
 |---|---:|---|---|
-| LiAuto-GeoX-155M | 155M | Surround-view / Video | Coming soon |
+| LiAuto-GeoX | 0.15B | Surround-view / Video | Coming soon |
 | LiAuto-GeoX-Teacher | 1.1B | Surround-view | - |
 
 ---
