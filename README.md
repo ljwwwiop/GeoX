@@ -36,6 +36,7 @@ Jian Yang<sup>1,†</sup>
 
 ## Release Plan
 
+- [✓] [Paper Release](https://arxiv.org/pdf/2606.05774)
 - [ ] LiAuto-GeoX Weight
 - [ ] LiAuto-GeoX-Teacher (Large-scale Teacher Model)
 - [ ] Data Processing
