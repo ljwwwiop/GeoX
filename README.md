@@ -57,6 +57,24 @@ All released models will be evaluated under the same protocol as reported in the
 
 ---
 
+## Acknowledgements
+
+Thanks to these great repositories:
+[DINOv2](https://github.com/facebookresearch/dinov2),
+[CUT3R](https://github.com/CUT3R/CUT3R),
+[VGGT](https://github.com/facebookresearch/vggt),
+[DA3](https://github.com/ByteDance-Seed/Depth-Anything-3),
+[PI3](https://github.com/yyfz/Pi3/tree/training),
+[DVGT](https://github.com/wzzheng/DVGT/tree/main),
+[OmniVGGT](https://github.com/Livioni/OmniVGGT-official),
+[FastVGGT](https://github.com/mystorm16/FastVGGT),
+[LiteVGGT](https://github.com/GarlicBa/LiteVGGT-repo),
+[SparseWorld-TC](https://github.com/MrPicklesGG/SparseWorld-TC),
+[Sky Segmentation](https://github.com/xiaolijian/sky-segmentation),
+and many other inspiring works in the community.
+
+---
+
 ## Citation
 
 If you find LiAuto-GeoX useful for your work, please cite:
