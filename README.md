@@ -70,7 +70,6 @@ Thanks to these great repositories:
 [FastVGGT](https://github.com/mystorm16/FastVGGT),
 [LiteVGGT](https://github.com/GarlicBa/LiteVGGT-repo),
 [SparseWorld-TC](https://github.com/MrPicklesGG/SparseWorld-TC),
-[Sky Segmentation](https://github.com/xiaolijian/sky-segmentation),
 and many other inspiring works in the community.
 
 ---
