@@ -5,7 +5,7 @@
 # LiAuto-GeoX: Efficient Grounded Driving Transformer
 
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://ljwwwiop.github.io/GeoX/)
-[![arXiv](https://img.shields.io/badge/arXiv-2605.xxxxx-b31b1b.svg)](https://arxiv.org/abs/2605.xxxxx)
+[![arXiv](https://img.shields.io/badge/arXiv-2606.05774-b31b1b.svg)](https://arxiv.org/pdf/2606.05774)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Demo-yellow)](https://huggingface.co)
 
 Jiawei Lian<sup>1,2,\*</sup>,
