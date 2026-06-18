@@ -6,7 +6,7 @@
 
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://ljwwwiop.github.io/GeoX/)
 [![arXiv](https://img.shields.io/badge/arXiv-2606.05774-b31b1b.svg)](https://arxiv.org/pdf/2606.05774)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Demo-yellow)](https://huggingface.co)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-ckpt-yellow)](https://huggingface.co/Veiiaj3dad/GeoX/tree/main)
 
 Jiawei Lian<sup>1,2,\*</sup>,
 Haoyi Sun<sup>2,\*</sup>,
@@ -94,6 +94,12 @@ CUDA_VISIBLE_DEVICES=2 python inference.py \
 ```
 
 After running inference, open your browser and navigate to `http://localhost:PORT` (replace `PORT` with your specified port) to visualize the 3D reconstruction results interactively.
+
+**Additional Options:**
+- `--conf_threshold`: Adjust the confidence threshold (default: 10.0) to filter low-confidence points. Lower values show more points, higher values show fewer but more confident points.
+- `--mask_black_bg`: Filter out black background pixels
+- `--mask_white_bg`: Filter out white background pixels
+- `--save_glb`: Export the reconstruction as a GLB file
 
 ---
 
