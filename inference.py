@@ -1,7 +1,7 @@
 """
-minivggt Inference Script
+Inference Script
 
-This script performs 3D reconstruction from images using the minivggt model.
+This script performs 3D reconstruction from images using the GeoX model.
 It supports:
 - Loading images and optional depth maps and camera parameters
 - Running inference to predict depth and camera poses
@@ -366,7 +366,7 @@ def viser_wrapper(
 
 # Command-line argument parser
 parser = argparse.ArgumentParser(
-    description="minivggt demo with viser for 3D visualization"
+    description="GeoX demo with viser for 3D visualization"
 )
 
 # Input data arguments
@@ -390,10 +390,10 @@ parser.add_argument("--save_glb",action="store_true",help="Save the output as a 
 
 def main():
     """
-    Main function for the minivggt demo with viser for 3D visualization.
+    Main function for the GeoX demo with viser for 3D visualization.
 
     This function:
-    1. Loads the minivggt model
+    1. Loads the GeoX model
     2. Processes input images from the specified folder (single or multiple batches)
     3. Runs inference to generate 3D points and camera poses
     4. Optionally applies sky segmentation to filter out sky points
@@ -404,10 +404,10 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Using device: {device}")
 
-    # Initialize and load minivggt model
-    print("Initializing and loading minivggt model...")
+    # Initialize and load GeoX model
+    print("Initializing and loading GeoX model...")
 
-    ##============== MINI-SMALL MODEL ===========
+    ##============== GEOX MODEL ===========
     model = GeoX()
 
     ckpt_path = "./checkpoints/model.safetensors"
@@ -606,25 +606,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# CUDA_VISIBLE_DEVICES=7
-
-'''
-=== Single Frame Example ===
-CUDA_VISIBLE_DEVICES=2 python inference.py \
-    --image_folder /lpai/volumes/mind-vla-ali-sh-mix/lianjiawei/clean_codebase/minivggt/exp/ddad_images/imgs \
-    --port 8082
-
-=== RGB+Sky Mask Example ===
-CUDA_VISIBLE_DEVICES=2 python inference.py \
-    --image_folder /lpai/volumes/mind-vla-ali-sh-mix/lianjiawei/clean_codebase/minivggt/exp/ddad_images/imgs \
-    --port 8082 --mask_sky
-
-=== RGB+Pose Example ===
-CUDA_VISIBLE_DEVICES=2 python inference.py \
-    --image_folder /lpai/volumes/mind-vla-ali-sh-mix/lianjiawei/clean_codebase/minivggt/exp/ddad_images \
-    --camera_folder /lpai/volumes/mind-vla-ali-sh-mix/lianjiawei/clean_codebase/minivggt/exp/ddad_cameras \
-    --port 8083
-
-'''
 
 
