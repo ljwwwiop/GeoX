@@ -1,0 +1,33 @@
+# Core dependencies - actively used in the codebase
+# numpy
+# torch
+# torchvision
+# Pillow
+# opencv-python
+scipy
+# einops
+safetensors
+trimesh
+#matplotlib
+imageio
+tqdm
+requests
+onnxruntime
+viser==0.2.23
+huggingface_hub
+evo
+
+# ============================================================
+# mmengine
+# transformers
+# accelerate
+# wandb
+diffusers
+joblib
+decord
+iopath
+tensorboard
+#gradio==5.17.1
+hydra-core
+omegaconf
+pydantic==2.10.6

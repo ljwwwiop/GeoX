@@ -37,11 +37,12 @@ Jian Yang<sup>1,†</sup>
 ## Release Plan
 
 - [✓] [Paper Release](https://arxiv.org/pdf/2606.05774)
-- [ ] LiAuto-GeoX Weight
-- [ ] LiAuto-GeoX-Teacher (Large-scale Teacher Model)
+- [✓] LiAuto-GeoX Weight
+- [✓] Inference Instructions
+- [ ] GeoX-Large
 - [ ] Data Processing
 - [ ] Training Pipeline
-- [ ] Inference Instructions
+
 
 ---
 
@@ -52,8 +53,47 @@ All released models will be evaluated under the same protocol as reported in the
 
 | Model | Parameters | Input Setting | Download |
 |---|---:|---|---|
-| LiAuto-GeoX | 0.15B | Surround-view / Video | Coming soon |
+| LiAuto-GeoX | 0.15B | Surround-view / Video | [🤗 Hugging Face](https://huggingface.co/Veiiaj3dad/GeoX/tree/main) |
 | LiAuto-GeoX-Teacher | 1.1B | Surround-view | - |
+
+---
+
+## Inference
+
+### Setup
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Usage Examples
+
+**Single Frame Example** - Basic inference with RGB images:
+```bash
+CUDA_VISIBLE_DEVICES=2 python inference.py \
+    --image_folder /path/to/your/images \
+    --port 8082
+```
+
+**RGB + Sky Mask Example** - Filter out sky regions for cleaner reconstruction:
+```bash
+CUDA_VISIBLE_DEVICES=2 python inference.py \
+    --image_folder /path/to/your/images \
+    --port 8082 \
+    --mask_sky
+```
+
+**RGB + Pose Example** - Use ground truth camera poses for better accuracy:
+```bash
+CUDA_VISIBLE_DEVICES=2 python inference.py \
+    --image_folder /path/to/your/images \
+    --camera_folder /path/to/your/cameras \
+    --port 8083
+```
+
+After running inference, open your browser and navigate to `http://localhost:PORT` (replace `PORT` with your specified port) to visualize the 3D reconstruction results interactively.
 
 ---
 
@@ -82,7 +122,7 @@ If you find LiAuto-GeoX useful for your work, please cite:
 @article{lian2026geox,
   author    = {Lian, Jiawei and Sun, Haoyi and Wu, Yang and Mu, Lifu and Wang, Siyuan and Wei, Tao and Hui, Le and Mao, Ning and Zhou, Pan and Zhan, Kun and Yang, Jian},
   title     = {LiAuto-GeoX: Efficient Grounded Driving Transformer},
-  journal   = {arXiv},
+  journal   = {arXiv:2606.05774},
   year      = {2026},
 }
 
